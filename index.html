@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тэмүүлэн Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --purple: #9b5cff;
+            --purple-dark: #7c3aed;
+            --purple-glow: rgba(155, 92, 255, 0.4);
+            --cyan: #00eeff;
+            --bg: #030712;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --border: rgba(148, 163, 184, 0.18);
+            --text-muted: #94a3b8;
+            --text-light: #cbd5e1;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 70% 10%, rgba(93, 0, 255, 0.35), transparent 30%),
+                radial-gradient(circle at 80% 40%, rgba(0, 238, 255, 0.18), transparent 35%),
+                var(--bg);
+            color: white;
+            font-family: 'Syne', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            width: 100%;
+            padding: 22px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(3, 7, 18, 0.8);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            font-family: 'Space Mono', monospace;
+        }
+        .logo span { color: var(--purple); }
+
+        nav a {
+            color: #d1d5db;
+            text-decoration: none;
+            margin: 0 14px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--purple); }
+
+        .cv-btn {
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(155, 92, 255, 0.7);
+            padding: 10px 22px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .cv-btn:hover {
+            background: rgba(155, 92, 255, 0.15);
+            box-shadow: 0 0 20px var(--purple-glow);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 560px;
+            padding: 80px 8%;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr 0.8fr;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .hello {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--purple);
+            border-radius: 30px;
+            color: #c084fc;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
+        h1 span, .section-title span { color: var(--purple); }
+
+        .hero h2 {
+            color: #a855f7;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .hero-text > p {
+            color: var(--text-light);
+            line-height: 1.7;
+            max-width: 480px;
+            font-size: 15px;
+        }
+
+        .buttons {
+            margin-top: 28px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(155, 92, 255, 0.7);
+            padding: 13px 26px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Syne', sans-serif;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn.main {
+            background: linear-gradient(135deg, #9333ea, #7c3aed);
+            box-shadow: 0 0 30px rgba(147, 51, 234, 0.5);
+            border-color: transparent;
+        }
+        .btn.main:hover { box-shadow: 0 0 45px rgba(147, 51, 234, 0.7); }
+        .btn:not(.main):hover { background: rgba(155, 92, 255, 0.12); }
+
+        .socials {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: rgba(255,255,255,0.06);
+            padding: 10px 22px;
+            border-radius: 50px;
+            color: #d1d5db;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .social-btn:hover {
+            background: var(--purple);
+            color: #fff;
+            box-shadow: 0 0 16px rgba(155, 92, 255, 0.5);
+        }
+
+        .hero-image {
+            height: 480px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.7), transparent 55%);
+            border-radius: 20px;
+        }
+        .hero-image img {
+            max-height: 480px;
+            max-width: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 35px rgba(0, 238, 255, 0.35));
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            backdrop-filter: blur(16px);
+        }
+        .info-card p {
+            margin-bottom: 22px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .info-card p:last-child { margin-bottom: 0; }
+
+        /* SHARED CARD */
+        .card {
+            width: 84%;
+            margin: 0 auto 60px;
+            padding: 32px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(16px);
+        }
+
+        .section-title {
+            font-size: 32px;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            font-weight: 800;
+        }
+
+        /* ABOUT */
+        #about {
+            width: 84%;
+            margin: 0 auto 60px;
+        }
+        .edu-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 30px;
+            backdrop-filter: blur(16px);
+        }
+        .edu-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 15px;
+            margin-bottom: 14px;
+        }
+        .edu-card p:last-child { margin-bottom: 0; }
+
+        /* EDUCATION CARD */
+        #education-card {
+            width: 84%;
+            margin: 0 auto 60px;
+            padding: 32px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(16px);
+        }
+        .school-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 32px;
+            margin-top: 18px;
+        }
+        .school-label {
+            color: #cbd5e1;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .school-value {
+            color: #facc15;
+            font-size: 15px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        /* ADVANTAGES */
+        .my-advantages-section { margin-top: 32px; }
+        .adv-card-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .adv-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .adv-card:hover {
+            background: rgba(155, 92, 255, 0.1);
+            box-shadow: 0 0 20px rgba(155, 92, 255, 0.2);
+        }
+        .adv-icon { font-size: 28px; margin-bottom: 10px; }
+        .adv-title { color: #ddd6fe; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+        .adv-desc { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
+
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 35px;
+        }
+        .skills-grid h3 {
+            color: #ddd6fe;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .skills-grid ul { list-style: none; }
+        .skills-grid li {
+            color: var(--text-light);
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .skills-grid li::before {
+            content: "•";
+            color: #a855f7;
+            margin-right: 10px;
+        }
+
+        /* PROJECTS */
+        #projects {
+            width: 84%;
+            margin: 0 auto 60px;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+        .project-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 35px rgba(147, 51, 234, 0.25);
+        }
+        .project-img {
+            height: 150px;
+            background: linear-gradient(135deg, #111827, #4c1d95, #0e7490);
+            position: relative;
+        }
+        .project-img span {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #8b5cf6;
+            padding: 6px 12px;
+            border-radius: 7px;
+            font-size: 12px;
+        }
+        .project-body { padding: 18px; }
+        .project-body h3 { margin-bottom: 10px; font-size: 16px; }
+        .project-body p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .project-bottom {
+            margin-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-bottom small { color: var(--text-muted); font-size: 12px; }
+        .project-bottom a { color: #a855f7; text-decoration: none; font-size: 13px; }
+
+        /* TESTIMONIAL */
+        .testimonial {
+            width: 84%;
+            margin: 0 auto 60px;
+            padding: 35px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .quote { font-size: 80px; color: #a855f7; line-height: 1; flex-shrink: 0; }
+        .testimonial > p { color: var(--text-light); line-height: 1.7; font-size: 15px; }
+        .person {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+        .avatar {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #06b6d4);
+        }
+        .person h4 { font-size: 15px; margin-bottom: 4px; }
+        .person span { color: var(--text-muted); font-size: 13px; display: block; margin-bottom: 4px; }
+        .person p { color: #facc15; font-size: 14px; }
+
+        /* CONTACT */
+        .contact {
+            width: 84%;
+            margin: 0 auto 30px;
+            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+            align-items: center;
+            gap: 25px;
+        }
+        .contact b { color: white; font-size: 14px; }
+        .contact p { color: var(--text-light); margin-top: 8px; font-size: 14px; }
+        .contact h2 { white-space: nowrap; }
+        .talk-btn {
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(155, 92, 255, 0.7);
+            padding: 13px 24px;
+            border-radius: 10px;
+            background: rgba(147, 51, 234, 0.15);
+            font-size: 14px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .talk-btn:hover {
+            background: rgba(147, 51, 234, 0.3);
+            box-shadow: 0 0 20px var(--purple-glow);
+        }
+
+        footer {
+            width: 84%;
+            margin: 0 auto;
+            padding: 20px 0 35px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ADVANTAGE LIST */
+        .adv-list { margin: 18px 0 0 0; padding: 0 0 0 18px; }
+        .adv-list li { color: var(--text-light); font-size: 15px; margin-bottom: 10px; line-height: 1.7; }
+        .edu-advantages { margin-top: 24px; }
+        .edu-advantages h3 { color: #a855f7; font-size: 18px; margin-bottom: 10px; font-weight: 700; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .hero { grid-template-columns: 1fr 1fr; }
+            .info-card { grid-column: span 2; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+            .project-grid { grid-template-columns: 1fr 1fr; }
+            .contact { grid-template-columns: 1fr 1fr; }
+            .adv-card-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 700px) {
+            header { flex-direction: column; gap: 14px; }
+            nav { display: flex; flex-wrap: wrap; justify-content: center; }
+            .hero { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 44px; }
+            .info-card { grid-column: span 1; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .project-grid { grid-template-columns: 1fr; }
+            .contact { grid-template-columns: 1fr; }
+            .testimonial { flex-direction: column; align-items: flex-start; }
+            .person { margin-left: 0; }
+            .card, #projects, .testimonial, .contact, footer, #about, #education-card { width: 94%; padding: 18px; }
+            .school-details { grid-template-columns: 1fr; }
+            .adv-card-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">PORTFOLIO<span>.</span></div>
+    <nav>
+        <a href="#">Нүүр</a>
+        <a href="#about">Тухай</a>
+        <a href="#skills">Ур чадвар</a>
+        <a href="#projects">Төслүүд</a>
+        <a href="#contact">Холбоо барих</a>
+        <a href="admin.html">Админ</a>
+    </nav>
+    <a href="#" class="cv-btn">CV татах</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-text">
+        <span class="hello">Сайн уу, би бол</span>
+        <h1>Тэмүүлэн<span>.</span></h1>
+        <h2>Орчин үеийн дижитал шийдэл бүтээгч</h2>
+        <p>Орчин үеийн, хурдан, хэрэглэгчдэд ээлтэй вэб системүүдийг цэвэр код болон гоёмсог дизайнаар хөгжүүлдэг.</p>
+        <div class="buttons">
+            <a href="#contact" class="btn main">Надад ажлын санал тавих →</a>
+            <a href="#projects" class="btn">Төслүүд үзэх →</a>
+        </div>
+        <div class="socials">
+            <div id="social-links"></div>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="profile_car_final.png" alt="Тэмүүлэн">
+    </div>
+
+    <div class="info-card">
+        <p><b>📍 Байршил</b><br>Улаанбаатар, Монгол Улс</p>
+        <p><b>✉ И-Мэйл</b><br>temuulentheone@gmail.com</p>
+        <p><b>☎ Утас</b><br>+976 88279439</p>
+        <p><b>🟢 Ажиллах боломж</b><br>Боломжтой</p>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="edu-card">
+        <h2 class="section-title">ТУХАЙ<span>.</span></h2>
+        <p>Сайн байна уу! Намайг Тэмүүлэн гэдэг. Би орчин үеийн вэб болон мобайл технологид суурилсан шийдэл, бүтээгдэхүүн хөгжүүлэхэд дуртай, тасралтгүй суралцаж, өөрийгөө хөгжүүлж байдаг залуу хөгжүүлэгч.</p>
+        <p>Одоогоор Их засаг олон улсын их сургуульд Программ хангамжийн бакалаврын зэрэгт <b>(2023–2027)</b> суралцаж байна. Мэдээллийн систем, вэб хөгжүүлэлт, UI/UX дизайн, автоматжуулалт, багийн ажиллагаа зэрэг чиглэлээр гүнзгий мэдлэг олж авч байгаа.</p>
+        <p>Миний зорилго бол Монголын болон дэлхийн хэрэглэгчдэд үнэ цэнтэй, шинэлэг, найдвартай дижитал бүтээгдэхүүн бүтээх юм. Шинэ технологи, бүтээлч шийдэлд үргэлж нээлттэй!</p>
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education-card">
+    <h2 class="section-title">БОЛОВСРОЛ<span>.</span></h2>
+    <div class="school-details">
+        <div>
+            <span class="school-label">Сургууль:</span>
+            <span class="school-value">Их засаг олон улсын их сургууль</span>
+        </div>
+        <div>
+            <span class="school-label">Голч дүн:</span>
+            <span class="school-value">3.9 / 4.0</span>
+        </div>
+        <div>
+            <span class="school-label">Курс:</span>
+            <span class="school-value">3-р курс</span>
+        </div>
+        <div>
+            <span class="school-label">Суралцсан хичээлийн тоо:</span>
+            <span class="school-value">36</span>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section class="card" id="skills">
+    <h2 class="section-title">УР ЧАДВАР<span>.</span></h2>
+    <div class="skills-grid">
+        <div>
+            <h3>Фронтенд</h3>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>Bootstrap</li>
+                <li>Vue.js</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Бэкенд</h3>
+            <ul>
+                <li>PHP</li>
+                <li>Laravel</li>
+                <li>MySQL</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Хэрэгсэл ба бусад</h3>
+            <ul>
+                <li>GitHub</li>
+                <li>VS Code</li>
+                <li>XAMPP</li>
+                <li>Figma</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Зөөлөн ур чадвар</h3>
+            <ul>
+                <li>Асуудал шийдвэрлэх</li>
+                <li>Багийн ажиллагаа</li>
+                <li>Харилцааны ур чадвар</li>
+                <li>Цагийн менежмент</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="my-advantages-section">
+        <h3 class="section-title" style="font-size: 22px; margin-top:32px;">Миний давуу тал</h3>
+        <div class="adv-card-grid">
+            <div class="adv-card">
+                <div class="adv-icon">🚀</div>
+                <div class="adv-title">Шинэ технологи хурдан сурдаг</div>
+                <div class="adv-desc">Тасралтгүй хөгжиж, шинэчлэлд хурдан дасан зохицдог.</div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">💡</div>
+                <div class="adv-title">Бүтээлч сэтгэлгээ</div>
+                <div class="adv-desc">Асуудлыг шинэлэг, үр дүнтэй аргаар шийдвэрлэх чадвартай.</div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">🤝</div>
+                <div class="adv-title">Багийн ажиллагаа</div>
+                <div class="adv-desc">Харилцааны өндөр ур чадвартай, хамтын ажиллагаанд идэвхтэй.</div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">⏰</div>
+                <div class="adv-title">Цагийн менежмент</div>
+                <div class="adv-desc">Ажлаа төлөвлөж, хариуцлагатайгаар гүйцэтгэдэг.</div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">🎨</div>
+                <div class="adv-title">UI/UX болон вэб мэдлэг</div>
+                <div class="adv-desc">Дизайн болон хөгжүүлэлтийн өргөн мэдлэгтэй.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+    <h2 class="section-title">ТӨСЛҮҮД<span>.</span></h2>
+    <div class="project-grid">
+        <div class="project-card">
+            <div class="project-img"><span>Laravel</span></div>
+            <div class="project-body">
+                <h3>Анхны CV</h3>
+                <p>Миний анхны CV вэбсайт.</p>
+                <div class="project-bottom">
+                    <small>HTML, CSS, JavaScript</small>
+                    <a href="https://temkaz123.github.io/temka/">Дэлгэрэнгүй →</a>
+                </div>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-img"><span>Vue.js</span></div>
+            <div class="project-body">
+                <h3>Gamified Learning Platform</h3>
+                <p>Хичээл, даалгавар, оноо, түвшинтэй онлайн сургалтын платформ.</p>
+                <div class="project-bottom">
+                    <small>Vue.js • Laravel</small>
+                    <a href="#">Дэлгэрэнгүй →</a>
+                </div>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-img"><span>Flutter</span></div>
+            <div class="project-body">
+                <h3>Online Shop App</h3>
+                <p>Бүтээгдэхүүн хайх, сагслах, захиалга хийх гар утасны апп.</p>
+                <div class="project-bottom">
+                    <small>Flutter • Laravel</small>
+                    <a href="#">Дэлгэрэнгүй →</a>
+                </div>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-img"><span>PHP</span></div>
+            <div class="project-body">
+                <h3>Hospital Appointment System</h3>
+                <p>Эмнэлгийн цаг захиалга, өвчтөний бүртгэл, эмчийн хуваарийн систем.</p>
+                <div class="project-bottom">
+                    <small>PHP • MySQL</small>
+                    <a href="#">Дэлгэрэнгүй →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial">
+    <div class="quote">"</div>
+    <p>Тэмүүлэн бол маш чадварлаг хөгжүүлэгч. Төслийг хугацаанд нь, цэвэр кодтой, маш сайн харилцаатайгаар гүйцэтгэсэн.</p>
+    <div class="person">
+        <div class="avatar"></div>
+        <div>
+            <h4>Болд-Оргил</h4>
+            <span>Гүйцэтгэх захирал, Tech Solutions LLC</span>
+            <p>★★★★★</p>
+        </div>
+    </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <div>
+        <h2 class="section-title">ХОЛБОО БАРИХ<span>.</span></h2>
+        <p style="color:#94a3b8; font-size:14px; margin-top:8px;">Шинэ боломжуудыг үргэлж нээлттэй хүлээж авдаг.</p>
+    </div>
+    <div>
+        <b>И-Мэйл</b>
+        <p>temuulentheone@gmail.com</p>
+    </div>
+    <div>
+        <b>Утас</b>
+        <p>+976 88279439</p>
+    </div>
+    <div>
+        <b>Байршил</b>
+        <p>Улаанбаатар, Монгол Улс</p>
+    </div>
+    <a href="mailto:temuulentheone@gmail.com" class="talk-btn">Хамтран ажиллая ✈</a>
+</section>
+
+<footer>
+    © 2026 Тэмүүлэн. Бүх эрх хуулиар хамгаалагдсан.
+</footer>
+
+<script>
+function renderSocialLinks() {
+    const container = document.getElementById('social-links');
+    if (!container) return;
+    let data = {};
+    try { data = JSON.parse(localStorage.getItem('portfolio_data')) || {}; } catch(e) { data = {}; }
+    const socials = Array.isArray(data.social) ? data.social : [];
+    if (socials.length === 0) {
+        container.innerHTML = '<span style="color:#94a3b8;">Social холбоос оруулаагүй байна.</span>';
+        return;
+    }
+    container.innerHTML = socials.map(s =>
+        `<a href="${s.url}" target="_blank" class="social-btn">${s.name}</a>`
+    ).join('');
+}
+renderSocialLinks();
+</script>
+</body>
+</html>
